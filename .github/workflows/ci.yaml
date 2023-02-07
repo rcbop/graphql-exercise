@@ -1,0 +1,19 @@
+name: "CI workflow"
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install newman
+        run: |
+          npm install -g newman
+      - name: Run python server
+        run: |
+          python server/api/main.py &
+      - name: Run tests
+        run: |
+          newman run graph-api.postman_collection.json
