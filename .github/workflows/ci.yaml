@@ -1,0 +1,31 @@
+name: "CI workflow"
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      JWT_SECRET_KEY: test4321
+      JWT_REFRESH_SECRET_KEY: test1234
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+          cache: 'pip'
+      - name: Install requirements
+        run: |
+          npm install -g newman
+          pushd server
+          pip install -r requirements.txt
+          pip install -r requirements.dev.txt
+          popd
+      - name: Run python server
+
+        run: |
+          python server/api/main.py &
+      - name: Run tests
+        run: |
+          newman run graph-api.postman_collection.json
