@@ -322,6 +322,50 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response should be in JSON format\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response should contain data field\", function () {",
+							"    pm.expect(pm.response.json().data).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Response should contain a houses array inside data\", function () {",
+							"    pm.expect(pm.response.json().data.houses).to.be.an('array');",
+							"});",
+							"",
+							"pm.test(\"Response should contain a persons array inside houses\", function () {",
+							"    pm.expect(pm.response.json().data.houses[0].persons).to.be.an('array');",
+							"});",
+							"",
+							"pm.test(\"Each person inside house should contain a name field and a age field\", function () {",
+							"    pm.expect(pm.response.json().data.houses.forEach(function (house){",
+							"        house.persons.forEach(function (person){",
+							"            pm.expect(person.name).to.exist;",
+							"            pm.expect(person.age).to.exist;",
+							"        });",
+							"    }));",
+							"});",
+							"",
+							"pm.test(\"Each age field should be of type int\", function () {",
+							"    pm.expect(pm.response.json().data.houses.forEach(function (house){",
+							"        house.persons.forEach(function (person){",
+							"            pm.expect(person.age).to.be.a('number');",
+							"        });",
+							"    }));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -347,7 +391,7 @@
 				"body": {
 					"mode": "graphql",
 					"graphql": {
-						"query": "query {\n  houses {\n    street\n    city\n    persons {\n        name\n        age\n    }\n  }\n}\n",
+						"query": "query {\n  houses {\n    street\n    city\n    persons {\n        name\n        age\n    }\n  }\n}",
 						"variables": ""
 					},
 					"options": {
