@@ -1,4 +1,4 @@
-fastapi == 0.90.1
+fastapi == 0.92.0
 graphene == 3.2.1
 sqlalchemy == 2.0.3
 uvicorn == 0.20.0
