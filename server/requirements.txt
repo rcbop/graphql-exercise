@@ -3,7 +3,7 @@ graphene == 3.2.1
 sqlalchemy == 2.0.3
 uvicorn == 0.20.0
 faker == 16.8.1
-strawberry-graphql[fastapi] == 0.156.3
+strawberry-graphql[fastapi] == 0.156.4
 python-jose[cryptography] == 3.3.0
 passlib[bcrypt] == 1.7.4
 python-multipart == 0.0.5
